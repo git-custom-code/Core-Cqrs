@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>Contracts for message serialization.</Title>
+    <Description>Contracts for message serialization.</Description>
+    <RootNamespace>CustomCode.Core.Messages.Serialization</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Messages\Core.Messages.csproj" />
+  </ItemGroup>
+
+</Project>

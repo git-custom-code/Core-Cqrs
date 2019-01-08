@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Style Guides", "Style Guide
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Messages", "Core\Messages\Core.Messages.csproj", "{6DD893D2-0E16-4A19-8958-EC74FAC1086A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Messages.Serialization", "Core\Messages.Serialization\Core.Messages.Serialization.csproj", "{5FBC288A-2CAC-42C6-83B1-F78D526F39C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{6DD893D2-0E16-4A19-8958-EC74FAC1086A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DD893D2-0E16-4A19-8958-EC74FAC1086A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DD893D2-0E16-4A19-8958-EC74FAC1086A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FBC288A-2CAC-42C6-83B1-F78D526F39C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FBC288A-2CAC-42C6-83B1-F78D526F39C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FBC288A-2CAC-42C6-83B1-F78D526F39C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FBC288A-2CAC-42C6-83B1-F78D526F39C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
