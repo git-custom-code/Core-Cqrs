@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AD55B8C-9AB4-423F-B422-36CB3F3D1AB3}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{A4E1ABA8-61D3-45A5-9D85-EEFD41B34719}"
+	ProjectSection(SolutionItems) = preProject
+		.Build\Copyright.props = .Build\Copyright.props
+		.Build\CustomCode.snk = .Build\CustomCode.snk
+		.Build\Documentation.props = .Build\Documentation.props
+		.Build\Nuget.props = .Build\Nuget.props
+		.Build\Nuget.targets = .Build\Nuget.targets
+		.Build\Signing.props = .Build\Signing.props
+		.Build\Versioning.props = .Build\Versioning.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{DD4D372C-8A12-442E-927F-456EF1829861}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.config = .nuget\NuGet.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Style Guides", "Style Guides", "{93955663-0B09-4486-936F-77E89F4C3F80}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A4E1ABA8-61D3-45A5-9D85-EEFD41B34719} = {0AD55B8C-9AB4-423F-B422-36CB3F3D1AB3}
+		{DD4D372C-8A12-442E-927F-456EF1829861} = {0AD55B8C-9AB4-423F-B422-36CB3F3D1AB3}
+		{93955663-0B09-4486-936F-77E89F4C3F80} = {0AD55B8C-9AB4-423F-B422-36CB3F3D1AB3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAFF7941-3330-4086-8FA6-327AD71DA633}
+	EndGlobalSection
+EndGlobal

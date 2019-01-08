@@ -1,0 +1,15 @@
+<Project>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageVersion>$(SemVer)</PackageVersion>
+    <PackageProjectUrl>https://github.com/git-custom-code/Core-Cqrs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/git-custom-code/Core-Cqrs</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>C#, CQRS</PackageTags>
+    <PackageLicenseUrl>https://github.com/git-custom-code/Core-Cqrs/blob/master/LICENSE</PackageLicenseUrl>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+</Project>
