@@ -1,0 +1,2 @@
+# Core-Cqrs
+Experimental
