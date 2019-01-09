@@ -36,6 +36,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Messages.Serialization
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Messages.Serialization.ProtocolBuffer", "Core\Messages.Serialization.ProtocolBuffer\Core.Messages.Serialization.ProtocolBuffer.csproj", "{DF793BD5-D859-49A9-B208-7C67F60D7048}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Messages.Transport", "Core\Messages.Transport\Core.Messages.Transport.csproj", "{15BF0F6F-6BA5-48C6-8CA1-80DED765EE5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Messages.Transport.NetMQ", "Core\Messages.Transport.NetMQ\Core.Messages.Transport.NetMQ.csproj", "{6CDAABAA-FEAF-45F0-9355-54E2A32AF1A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +58,14 @@ Global
 		{DF793BD5-D859-49A9-B208-7C67F60D7048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF793BD5-D859-49A9-B208-7C67F60D7048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF793BD5-D859-49A9-B208-7C67F60D7048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15BF0F6F-6BA5-48C6-8CA1-80DED765EE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BF0F6F-6BA5-48C6-8CA1-80DED765EE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BF0F6F-6BA5-48C6-8CA1-80DED765EE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BF0F6F-6BA5-48C6-8CA1-80DED765EE5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CDAABAA-FEAF-45F0-9355-54E2A32AF1A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDAABAA-FEAF-45F0-9355-54E2A32AF1A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDAABAA-FEAF-45F0-9355-54E2A32AF1A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDAABAA-FEAF-45F0-9355-54E2A32AF1A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
