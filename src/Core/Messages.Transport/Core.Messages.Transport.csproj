@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>Contracts for message transport.</Title>
+    <Description>Contracts for message transport.</Description>
+    <RootNamespace>CustomCode.Core.Messages.Transport</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Messages\Core.Messages.csproj" />
+  </ItemGroup>
+
+</Project>
