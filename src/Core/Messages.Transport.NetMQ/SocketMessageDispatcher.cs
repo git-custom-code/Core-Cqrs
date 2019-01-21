@@ -17,7 +17,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// Creates a new instance of the <see cref="SocketMessageDispatcher"/> type.
         /// </summary>
         /// <param name="id"></param>
-        protected SocketMessageDispatcher(string id)
+        protected SocketMessageDispatcher(string id = null)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
