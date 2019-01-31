@@ -56,7 +56,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         #region Logic
 
         /// <summary>
-        /// Compares two <see cref="Port"/>s for euqality.
+        /// Compares two <see cref="Port"/>s for equality.
         /// </summary>
         /// <param name="left"> The operator's left hand side argument. </param>
         /// <param name="right"> The operator's right hand side argument. </param>
@@ -71,7 +71,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// </summary>
         /// <param name="left"> The operator's left hand side argument. </param>
         /// <param name="right"> The operator's right hand side argument. </param>
-        /// <returns> True if both <see cref="Port"/>s are inqueal (i.e. have different port numbers), false otherwise. </returns>
+        /// <returns> True if both <see cref="Port"/>s are inequal (i.e. have different port numbers), false otherwise. </returns>
         public static bool operator !=(Port left, Port right)
         {
             return left.PortNumber != right.PortNumber;
