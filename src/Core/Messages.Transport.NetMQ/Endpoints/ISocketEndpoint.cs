@@ -1,4 +1,4 @@
-namespace CustomCode.Core.Messages.Transport.NetMQ
+namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
 {
     using global::NetMQ;
 

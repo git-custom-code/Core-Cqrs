@@ -1,5 +1,6 @@
 namespace CustomCode.Core.Messages.Transport.NetMQ.Extensions
 {
+    using Endpoints;
     using global::NetMQ;
     using System;
 
