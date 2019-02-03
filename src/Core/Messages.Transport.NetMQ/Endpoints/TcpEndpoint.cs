@@ -15,7 +15,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         /// </summary>
         /// <param name="portNumber"> The underlying local socket's port number. </param>
         public TcpEndpoint(ushort portNumber)
-            : this(new IPAddress(127, 0, 0, 1), new Port(portNumber))
+            : this(IPAddress.LocalHost, new Port(portNumber))
         { }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         /// </summary>
         /// <param name="port"> The underlying local socket's port. </param>
         public TcpEndpoint(Port port)
-            : this (new IPAddress(127, 0, 0, 1), port)
+            : this (IPAddress.LocalHost, port)
         { }
 
         /// <summary>

@@ -49,6 +49,11 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         #region Data
 
         /// <summary>
+        /// Gets the ip address for the local host.
+        /// </summary>
+        public static IPAddress LocalHost { get; } = new IPAddress(127, 0, 0, 1);
+
+        /// <summary>
         /// Gets the address' unsigned 32-bit value. 
         /// </summary>
         private uint Value { get; }
