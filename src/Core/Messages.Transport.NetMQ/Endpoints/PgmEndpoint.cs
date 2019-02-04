@@ -6,7 +6,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
     /// An <see cref="IEndpoint"/> implementation that uses <see cref="NetMQSocket"/> to send and/or receive
     /// <see cref="IMessage"/> instances over pgm. 
     /// </summary>
-    public sealed class PgmEndpoint : ISocketEndpoint
+    public struct PgmEndpoint : ISocketEndpoint
     {
         #region Dependencie
 
@@ -23,7 +23,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         /// </summary>
         /// <param name="port"> The underlying local socket's port. </param>
         public PgmEndpoint(Port port)
-            : this (IPAddress.LocalHost, port)
+            : this(IPAddress.LocalHost, port)
         { }
 
         /// <summary>
@@ -35,14 +35,12 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         {
             IPAddress = ipAddress;
             Port = port;
+            Protocol = Protocol.Pgm;
         }
 
         #endregion
 
         #region Data
-
-        /// <inheritdoc />
-        public Protocol Protocol { get; } = Protocol.Pgm;
 
         /// <summary>
         /// Gets the endpoint's network ip address.
@@ -54,6 +52,9 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         /// </summary>
         public Port Port { get; }
 
+        /// <inheritdoc />
+        public Protocol Protocol { get; }
+        
         #endregion
 
         #region Logic

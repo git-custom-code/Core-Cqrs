@@ -4,9 +4,9 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
 
     /// <summary>
     /// An <see cref="IEndpoint"/> implementation that uses <see cref="NetMQSocket"/> to send and/or receive
-    /// <see cref="IMessage"/> instances using in-process communication protocl. 
+    /// <see cref="IMessage"/> instances using in-process communication protocol. 
     /// </summary>
-    public sealed class InProcessEndpoint : ISocketEndpoint
+    public struct InProcessEndpoint : ISocketEndpoint
     {
         #region Dependencies
 
@@ -25,6 +25,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         public InProcessEndpoint(Identity<string> identity)
         {
             Identity = identity;
+            Protocol = Protocol.Tcp;
         }
 
         #endregion
@@ -32,7 +33,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         #region Data
 
         /// <inheritdoc />
-        public Protocol Protocol { get; } = Protocol.InProc;
+        public Protocol Protocol { get; }
 
         /// <summary>
         /// Gets the endpoint's identity.

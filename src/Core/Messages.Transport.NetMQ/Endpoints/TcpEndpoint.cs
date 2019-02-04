@@ -6,7 +6,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
     /// An <see cref="IEndpoint"/> implementation that uses <see cref="NetMQSocket"/> to send and/or receive
     /// <see cref="IMessage"/> instances over tcp. 
     /// </summary>
-    public sealed class TcpEndpoint : ISocketEndpoint
+    public struct TcpEndpoint : ISocketEndpoint
     {
         #region Dependencie
 
@@ -23,7 +23,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         /// </summary>
         /// <param name="port"> The underlying local socket's port. </param>
         public TcpEndpoint(Port port)
-            : this (IPAddress.LocalHost, port)
+            : this(IPAddress.LocalHost, port)
         { }
 
         /// <summary>
@@ -35,14 +35,12 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         {
             IPAddress = ipAddress;
             Port = port;
+            Protocol = Protocol.Tcp;
         }
 
         #endregion
 
         #region Data
-
-        /// <inheritdoc />
-        public Protocol Protocol { get; } = Protocol.Tcp;
 
         /// <summary>
         /// Gets the endpoint's network ip address.
@@ -53,6 +51,9 @@ namespace CustomCode.Core.Messages.Transport.NetMQ.Endpoints
         /// Gets the endpoint's network port.
         /// </summary>
         public Port Port { get; }
+
+        /// <inheritdoc />
+        public Protocol Protocol { get; }
 
         #endregion
 
