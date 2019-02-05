@@ -32,7 +32,7 @@ namespace CustomCode.Core.Messages
         /// <summary>
         /// Gets the identity's unique value.
         /// </summary>
-        private T Value { get; }
+        public T Value { get; }
 
         #endregion
 
