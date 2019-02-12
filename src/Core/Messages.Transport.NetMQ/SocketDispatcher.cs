@@ -2,10 +2,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
 {
     using global::NetMQ;
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Reactive.Disposables;
     using System.Threading;
     using System.Threading.Tasks;
 
