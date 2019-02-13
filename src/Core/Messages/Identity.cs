@@ -64,7 +64,7 @@ namespace CustomCode.Core.Messages
         /// Explicitely cast a unique value of type <typeparamref name="T"/> to an <see cref="Identity{T}"/>.
         /// </summary>
         /// <param name="value"> The unique value to be converted to an <see cref="Identity{T}"/>. </param>
-        public static explicit operator Identity<T>(T value)
+        public static implicit operator Identity<T>(T value)
         {
             return new Identity<T>(value);
         }
