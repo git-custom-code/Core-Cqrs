@@ -2,7 +2,6 @@ namespace CustomCode.Core.Messages.Serialization.ProtocolBuffer
 {
     using ProtoBuf.Meta;
     using System.IO;
-    using System.IO.Compression;
 
     /// <summary>
     /// An <see cref="IMessageSerializer"/> implementation using google's protocol buffer.
@@ -54,37 +53,6 @@ namespace CustomCode.Core.Messages.Serialization.ProtocolBuffer
                     var envelope = new MessageEnvelope(messageType, serializedMessage);
                     Model.Serialize(stream, envelope);
                     return stream.ToArray();
-                }
-            }
-        }
-
-        public byte[] SerializeCompress<T>(T message) where T : IMessage
-        {
-            var messageType = typeof(T);
-            using (var messageStream = new MemoryStream())
-            {
-                if (!Model.IsDefined(messageType))
-                {
-                    Model.Add(messageType, true);
-                }
-
-                Model.Serialize(messageStream, message);
-                var serializedMessage = messageStream.ToArray();
-
-                using (var stream = new MemoryStream())
-                {
-                    var envelope = new MessageEnvelope(messageType, serializedMessage);
-                    Model.Serialize(stream, envelope);
-
-                    using (var compressedStream = new MemoryStream())
-                    {
-                        stream.Position = 0;
-                        using (var gzipStream = new GZipStream(compressedStream, CompressionMode.Compress))
-                        {
-                            stream.CopyTo(gzipStream);
-                        }
-                        return compressedStream.ToArray();
-                    }
                 }
             }
         }
