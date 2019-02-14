@@ -1,7 +1,8 @@
-﻿namespace CustomCode.Core.Messages.Serialization.ProtocolBuffer
+namespace CustomCode.Core.Messages.Serialization.ProtocolBuffer
 {
     using ProtoBuf.Meta;
     using System.IO;
+    using System.IO.Compression;
 
     /// <summary>
     /// An <see cref="IMessageSerializer"/> implementation using google's protocol buffer.
@@ -19,6 +20,10 @@
         public MessageSerializer(RuntimeTypeModel model = null)
         {
             Model = model ?? RuntimeTypeModel.Default;
+            if (!Model.IsDefined(typeof(MessageEnvelope)))
+            {
+                Model.Add(typeof(MessageEnvelope), true);
+            }
         }
 
         /// <summary>
@@ -33,10 +38,54 @@
         /// <inheritdoc />
         public byte[] Serialize<T>(T message) where T : IMessage
         {
-            using (var stream = new MemoryStream())
+            var messageType = typeof(T);
+            using (var messageStream = new MemoryStream())
             {
-                Model.Serialize(stream, message);
-                return stream.ToArray();
+                if (!Model.IsDefined(messageType))
+                {
+                    Model.Add(messageType, true);
+                }
+
+                Model.Serialize(messageStream, message);
+                var serializedMessage = messageStream.ToArray();
+
+                using (var stream = new MemoryStream())
+                {
+                    var envelope = new MessageEnvelope(messageType, serializedMessage);
+                    Model.Serialize(stream, envelope);
+                    return stream.ToArray();
+                }
+            }
+        }
+
+        public byte[] SerializeCompress<T>(T message) where T : IMessage
+        {
+            var messageType = typeof(T);
+            using (var messageStream = new MemoryStream())
+            {
+                if (!Model.IsDefined(messageType))
+                {
+                    Model.Add(messageType, true);
+                }
+
+                Model.Serialize(messageStream, message);
+                var serializedMessage = messageStream.ToArray();
+
+                using (var stream = new MemoryStream())
+                {
+                    var envelope = new MessageEnvelope(messageType, serializedMessage);
+                    Model.Serialize(stream, envelope);
+
+                    using (var compressedStream = new MemoryStream())
+                    {
+                        stream.Position = 0;
+                        using (var gzipStream = new GZipStream(compressedStream, CompressionMode.Compress))
+                        {
+                            stream.CopyTo(gzipStream);
+                        }
+                        return compressedStream.ToArray();
+                    }
+                }
             }
         }
 

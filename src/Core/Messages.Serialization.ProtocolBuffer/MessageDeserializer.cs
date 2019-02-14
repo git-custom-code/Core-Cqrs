@@ -1,7 +1,8 @@
-﻿namespace CustomCode.Core.Messages.Serialization.ProtocolBuffer
+namespace CustomCode.Core.Messages.Serialization.ProtocolBuffer
 {
     using ProtoBuf.Meta;
     using System.IO;
+    using System.IO.Compression;
 
     /// <summary>
     /// An <see cref="IMessageDeserializer"/> implementation using google's protocol buffer.
@@ -19,6 +20,10 @@
         public MessageDeserializer(RuntimeTypeModel model = null)
         {
             Model = model ?? RuntimeTypeModel.Default;
+            if (!Model.IsDefined(typeof(MessageEnvelope)))
+            {
+                Model.Add(typeof(MessageEnvelope), true);
+            }
         }
 
         /// <summary>
@@ -35,7 +40,40 @@
         {
             using (var stream = new MemoryStream(data))
             {
-                return (T)Model.Deserialize(stream, null, typeof(T));
+                var envelope = (MessageEnvelope)Model.Deserialize(stream, null, typeof(MessageEnvelope));
+                using (var messageStream = new MemoryStream(envelope.SerializedMessage))
+                {
+                    if (!Model.IsDefined(envelope.Type))
+                    {
+                        Model.Add(envelope.Type, true);
+                    }
+
+                    var message = (T)Model.Deserialize(messageStream, null, envelope.Type);
+                    return message;
+                }
+            }
+        }
+
+        public T DeserializeCompressed<T>(byte[] data) where T : IMessage
+        {
+            using (var compressedStream = new MemoryStream(data))
+            using (var gzipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+            using (var stream = new MemoryStream())
+            {
+                gzipStream.CopyTo(stream);
+                stream.Position = 0;
+
+                var envelope = (MessageEnvelope)Model.Deserialize(stream, null, typeof(MessageEnvelope));
+                using (var messageStream = new MemoryStream(envelope.SerializedMessage))
+                {
+                    if (!Model.IsDefined(envelope.Type))
+                    {
+                        Model.Add(envelope.Type, true);
+                    }
+
+                    var message = (T)Model.Deserialize(messageStream, null, envelope.Type);
+                    return message;
+                }
             }
         }
 
