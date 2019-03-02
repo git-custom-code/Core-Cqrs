@@ -7,7 +7,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
 
     /// <summary>
     /// Interface for a subscriber to a <see cref="DualSocketBus"/> that can receive serialized <see cref="IMessage"/>
-    /// instances from the subscribed. <see cref="IMessageBus"/>
+    /// instances from the subscribed <see cref="IMessageBus"/>.
     /// </summary>
     public interface IDualSocketBusSubscriber : IObservable<NetMQMessage>, IDisposable
     {
