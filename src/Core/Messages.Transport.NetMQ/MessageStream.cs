@@ -5,36 +5,36 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
     using Serialization;
     using System;
     using System.Reactive;
+    using System.Reactive.Linq;
 
     /// <summary>
-    /// An observable stream of <see cref="IMessage"/>'s of type <typeparamref name="T"/>.
+    /// An observable stream of <see cref="IMessage"/>'s received from a .
     /// </summary>
-    /// <typeparam name="T"> The type of the stream's messages. </typeparam>
-    public sealed class MessageStream<T> : ObservableBase<T>, IMessageStream<T> where T : IMessage
+    public sealed class MessageStream : ObservableBase<IMessage>, IMessageStream
     {
         #region Dependencies
 
         /// <summary>
-        /// Creates a new instance of the <see cref="MessageStream{T}"/> type.
+        /// Creates a new instance of the <see cref="MessageStream"/> type.
         /// </summary>
-        /// <param name="deserializer">
-        /// An <see cref="IMessageDeserializer"/> implementation that can be used to deserialize messages
-        /// from the specified <paramref name="source"/>.
-        /// </param>
-        /// <param name="source">
+        /// <param name="serializedMessageStream">
         /// A reactive source that pushes a new <see cref="NetMQMessage"/> to the stream every time one is received
         /// at the connected <see cref="NetMQSocket"/>.
         /// </param>
-        public MessageStream(IMessageDeserializer deserializer, IMessageSource source)
+        /// <param name="deserializer">
+        /// An <see cref="IMessageDeserializer"/> implementation that can be used to deserialize messages
+        /// from the specified <paramref name="serializedMessageStream"/>.
+        /// </param>
+        public MessageStream(IObservable<NetMQMessage> serializedMessageStream, IMessageDeserializer deserializer)
         {
-            Deserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
-            MessageType = typeof(T).Name;
-            Source = source ?? throw new ArgumentNullException(nameof(source));
+            Deserializer = deserializer;
+            DeserializedMessageStream = new Lazy<IObservable<IMessage>>(CreateDeserializedMessageStream, true);
+            SerializedMessageStream = serializedMessageStream;
         }
 
         /// <summary>
         /// Gets an <see cref="IMessageDeserializer"/> implementation that can be used to deserialize messages
-        /// from the specified <see cref="Source"/>.
+        /// from the specified <see cref="SerializedMessageStream"/>.
         /// </summary>
         private IMessageDeserializer Deserializer { get; }
 
@@ -42,35 +42,54 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// Gets a reactive source that pushes a new <see cref="NetMQMessage"/> to the stream every time one is received
         /// at the connected <see cref="NetMQSocket"/>.
         /// </summary>
-        private IMessageSource Source { get; }
+        private IObservable<NetMQMessage> SerializedMessageStream { get; }
 
         #endregion
 
         #region Data
 
         /// <summary>
-        /// Gets the name of the stream's message type.
+        /// Gets the internal observable deserialized <see cref="IMessage"/> stream.
         /// </summary>
-        private string MessageType { get; }
+        private Lazy<IObservable<IMessage>> DeserializedMessageStream { get; }
 
         #endregion
 
         #region Logic
 
         /// <inheritdoc />
-        protected override IDisposable SubscribeCore(IObserver<T> observer)
+        protected override IDisposable SubscribeCore(IObserver<IMessage> observer)
         {
-            return Source.Subscribe(
-                multiFrameMessage =>
-                    {
-                        if (MessageType.Equals(multiFrameMessage.MessageType(), StringComparison.Ordinal))
+            return DeserializedMessageStream.Value.Subscribe(observer);
+        }
+
+        /// <summary>
+        /// Creates the deserialized <see cref="IMessage"/> stream and ensures that the <see cref="Deserializer"/>
+        /// is invoked only once per reveived <see cref="NetMQMessage"/>.
+        /// </summary>
+        /// <returns> The observable deserialized <see cref="IMessage"/> stream. </returns>
+        private IObservable<IMessage> CreateDeserializedMessageStream()
+        {
+            var observable = Observable.Create<IMessage>(observer =>
+                {
+                    return SerializedMessageStream.Subscribe(
+                        multiFrameMessage =>
                         {
-                            var message = Deserializer.Deserialize<T>(multiFrameMessage.SerializedMessage());
-                            observer.OnNext(message);
-                        }
-                    },
-                observer.OnError,
-                observer.OnCompleted);
+                            try
+                            {
+                                var message = Deserializer.Deserialize<IMessage>(multiFrameMessage.SerializedMessage());
+                                observer.OnNext(message);
+                            }
+                            catch (Exception e)
+                            {
+                                observer.OnError(e);
+                            }
+                        },
+                        observer.OnError,
+                        observer.OnCompleted);
+                });
+
+            return observable.Publish().RefCount();
         }
 
         #endregion
