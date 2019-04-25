@@ -9,15 +9,15 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
     /// <summary>
     /// Implementation of the <see cref="IMessageDispatcher{T}"/> interface for netMQ sockets.
     /// </summary>
-    public abstract class SocketDispatcher : ISocketDispatcher
+    public abstract class SocketDispatcherThread : ISocketDispatcherThread
     {
         #region Dependencies
 
         /// <summary>
-        /// Creates a new instance of the <see cref="SocketDispatcher"/> type.
+        /// Creates a new instance of the <see cref="SocketDispatcherThread"/> type.
         /// </summary>
         /// <param name="id"></param>
-        protected SocketDispatcher(Identity<string>? id = null)
+        protected SocketDispatcherThread(Identity<string>? id = null)
         {
             if (id.HasValue)
             {
@@ -25,7 +25,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
             }
             else
             {
-                Id = new Identity<string>($"{nameof(SocketDispatcher)}-{Guid.NewGuid()}");
+                Id = new Identity<string>($"{nameof(SocketDispatcherThread)}-{Guid.NewGuid()}");
             }
         }
 
@@ -130,7 +130,6 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
                     }
                     DispatchedSockets.Clear();
                     PollingThread.Value.Dispose();
-                    PollingThread = null;
                 }
             }
             finally
@@ -161,7 +160,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
                 if (PollingThread == null)
                 {
                     throw new ObjectDisposedException(
-                        nameof(SocketDispatcher), $"The dispatcher with the id {Id} was already disposed");
+                        nameof(ISocketDispatcherThread), $"The dispatcher with the id {Id} was already disposed");
                 }
 
                 if (PollingThread.IsValueCreated == false)

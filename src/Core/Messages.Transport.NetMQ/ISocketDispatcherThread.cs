@@ -5,6 +5,6 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
     /// <summary>
     /// An <see cref="IMessageDispatcher{T}"/> specialization for netMQ sockets.
     /// </summary>
-    public interface ISocketDispatcher : IMessageDispatcher<ISocketPollable>
+    public interface ISocketDispatcherThread : IMessageDispatcher<ISocketPollable>
     { }
 }

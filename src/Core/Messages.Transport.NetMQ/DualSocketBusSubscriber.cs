@@ -27,7 +27,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// </param>
         protected DualSocketBusSubscriber(
             IDualSocketEndpoint messageBusEndpoint,
-            ISocketDispatcher dispatcher,
+            ISocketDispatcherThread dispatcher,
             IScheduler? scheduler = null)
         {
             Dispatcher = dispatcher;
@@ -46,7 +46,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// <summary>
         /// Gets the dispatcher that is used for incoming messages from the subscribed bus.
         /// </summary>
-        private ISocketDispatcher Dispatcher { get; }
+        private ISocketDispatcherThread Dispatcher { get; }
 
         /// <summary>
         /// Gets the socket that will receive incoming messages from the subscribed bus.

@@ -22,7 +22,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// </summary>
         /// <param name="endpoint"> The message bus' endpoint. </param>
         /// <param name="dispatcher"> The dispatcher that is used for incoming and outgoing messages. </param>
-        protected DualSocketBus(IDualSocketEndpoint endpoint, ISocketDispatcher dispatcher)
+        protected DualSocketBus(IDualSocketEndpoint endpoint, ISocketDispatcherThread dispatcher)
         {
             Endpoint = endpoint ?? throw new ArgumentNullException(nameof(endpoint));
             Dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
@@ -45,7 +45,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// <summary>
         /// Gets the dispatcher that is used for incoming and outgoing messages.
         /// </summary>
-        private ISocketDispatcher Dispatcher { get; }
+        private ISocketDispatcherThread Dispatcher { get; }
 
         /// <summary>
         /// Gets the socket that will receive incoming messages.

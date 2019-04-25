@@ -22,7 +22,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// <param name="dispatcher"> The dispatcher that is used for outgoing messages from the subscibed bus. </param>
         public DualSocketBusPublisher(
             IDualSocketEndpoint messageBusEndpoint,
-            ISocketDispatcher dispatcher)
+            ISocketDispatcherThread dispatcher)
         {
             Dispatcher = dispatcher;
             MessageBusEndpoint = messageBusEndpoint;
@@ -43,7 +43,7 @@ namespace CustomCode.Core.Messages.Transport.NetMQ
         /// <summary>
         /// Gets the dispatcher that is used for incoming messages from the subscribed bus.
         /// </summary>
-        private ISocketDispatcher Dispatcher { get; }
+        private ISocketDispatcherThread Dispatcher { get; }
 
         /// <summary>
         /// Gets the socket that will be used to publish outgoing messages.
